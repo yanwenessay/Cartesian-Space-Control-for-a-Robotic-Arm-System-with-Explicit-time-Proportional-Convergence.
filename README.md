@@ -1,5 +1,6 @@
 # Cartesian-Space-Control-for-a-Robotic-Arm-System-with-Explicit-time-Proportional-Convergence.
-Cartesian Space Control and Joint Tracking Control for a Robotic Arm System with Explicit-time Proportional Convergence[J/OL]. IEEE/CAA Journal of Automatica Sinica, [2026-2-27]. https://doi.org/10.1109/JAS.2026.125963
+[1]Cartesian Space Control and Joint Tracking Control for a Robotic Arm System with Explicit-time Proportional Convergence[J/OL]. IEEE/CAA Journal of Automatica Sinica, [2026-2-27]. https://doi.org/10.1109/JAS.2026.125963
+[2]Trajectory planning and low-chattering fixed-time nonsingular terminal sliding mode control for a dual-arm free-floating space robot[J]. Robotica, 2022, 40(3): 625-645.
 
 全新的位姿级间接笛卡尔空间控制模型，可将李雅普诺夫控制框架引入关节型机械臂的运动学闭环规划中，解决了速度级规划的解析解问题，有望为大范围位置规划提供最后1cm的速度解。
 缺陷：解的不稳定性，在大范围规划中容易产生抖震，有待采用优化控制的方法对控制输入进行约束，使得轨迹平滑。
