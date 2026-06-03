@@ -6,6 +6,7 @@ The previous code used a small-attitude-error approximation, where the geometric
 https://github.com/user-attachments/assets/e941b028-dba6-4f91-a77f-c28ba0319ae9 (-2s to 10s, demo)
 
 2026.5.1更新：
+[1]Cartesian space control and joint tracking control for a robotic arm system with explicit-time proportional convergence, IEEE/CAA J. Autom. Sinica, early access, 2026.  doi:  10.1109/JAS.2026.125963（files：code_of_paper[1]、python_Robot_arm_CSIC_kinematic_planning）
 注意：没有关节限幅的使用是及其危险的，请编写代码时加上安全保护
 Note: The use without joint limiters is extremely dangerous. Please make sure to add safety protection when writing the code
 
