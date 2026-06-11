@@ -1,3 +1,121 @@
+2026.6.12更新（Directory: explicit_time_kinematic_open_source）
+# Kinova Gen3 Explicit-Time Kinematic Planning
+
+本仓库Directory: explicit_time_kinematic_open_source提供一个面向 Kinova Gen3 7 自由度机械臂的显式时间运动学规划与在线控制示例，包括末端位姿规划、逆运动学、在线关节速度控制、多 waypoint 轨迹执行，以及可选的实时位姿 Web 监控。
+
+## 文件结构
+
+```text
+explicit_time_kinematic_open_source/
+  planning_main.py                    # 显式时间规划入口
+  inverse_kinematics.py               # 逆运动学
+  Kinematic_fcn.py                    # 正运动学/Jacobian
+  Yan_vel_control.py                  # 末端速度控制
+  pose_end_planning.py                # 末端位姿闭环控制
+  online_joint_speed_control.py       # 在线关节速度控制
+  waypoint_speed_trajectory.py        # 多 waypoint 轨迹
+  kinova_arm_verification.py          # 机械臂验证流程
+  test_main.py                        # 离线测试/绘图
+  utilities.py                        # Kortex 连接工具
+  Web_view/realtime_pose_web.py       # 实时位姿 Web 监控
+```
+
+历史结果、日志、缓存和私有网络信息未放入开源目录。
+
+## 安全提醒
+
+本代码会向真实机械臂发送关节速度或关节角命令。运行前请确认：
+
+* 工作空间内没有人员和障碍物；
+* 急停、示教器和安全限位可用；
+* 机械臂处于无 fault 状态；
+* 已根据自己的末端工具、目标点和速度上限检查参数；
+* 首次运行建议降低速度、缩短运行时间，并随时准备急停。
+
+## 安装
+
+建议将本目录放在 Kinova Kortex Python API 的 examples 目录下：
+
+```text
+api_python/examples/explicit_time_kinematic_open_source/
+```
+
+安装依赖：
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+如果已安装 `kortex_api`，通常只需：
+
+```bash
+python3 -m pip install numpy scipy matplotlib
+```
+
+## 运行示例
+
+实机运行时请自行填写机械臂 IP、用户名和密码，不要写入仓库。
+
+末端位姿闭环控制：
+
+```bash
+python3 pose_end_planning.py --ip <ROBOT_IP> -u <USERNAME> -p <PASSWORD>
+```
+
+多 waypoint 速度轨迹：
+
+```bash
+python3 waypoint_speed_trajectory.py --ip <ROBOT_IP> -u <USERNAME> -p <PASSWORD>
+```
+
+在线关节速度控制：
+
+```bash
+python3 online_joint_speed_control.py --ip <ROBOT_IP> -u <USERNAME> -p <PASSWORD>
+```
+
+机械臂验证流程：
+
+```bash
+python3 kinova_arm_verification.py --ip <ROBOT_IP> -u <USERNAME> -p <PASSWORD>
+```
+
+离线测试：
+
+```bash
+python3 test_main.py
+```
+
+## 常用参数位置
+
+* `constant.py`：末端工具长度 `z_tool`；
+* `pose_end_planning.py`：目标位姿、控制周期、关节速度上限和收敛阈值；
+* `online_joint_speed_control.py`：单目标位姿、速度上限、速度比例和最大运行时间；
+* `waypoint_speed_trajectory.py`：waypoint、段时长、速度上限和速度比例；
+* `Web_view/realtime_pose_web.py`：工具长度、刷新频率和 Web 端口。
+
+## Web 位姿监控
+
+```bash
+cd Web_view
+python3 realtime_pose_web.py \
+  --ip <ROBOT_IP> -u <USERNAME> -p <PASSWORD> \
+  --web-host <WEB_BIND_HOST> --web-port 8088 --poll-hz 20
+```
+
+浏览器访问：
+
+```text
+http://<WEB_BIND_HOST>:8088
+```
+
+位姿 API：
+
+```text
+http://<WEB_BIND_HOST>:8088/api/pose
+```
+
+
 2026.6.3更新：（files：yanwen_exp_kinematic）
 上一版论文（10.1109/JAS.2026.125963）程序采用小姿态误差近似，直接将几何角速度误差作为轴角姿态误差导数，并用几何雅可比进行位姿反馈规划。该处理在短距离运动中可近似成立，但在座舱长距离姿态变化任务中不够严谨。本代码包修正为基于 SO(3) 逆左雅可比和 analytical Jacobian 的位姿反馈规划器，并输出规划关节轨迹用于后续跟踪控制。（新论文：YAN W, ZHU R H, QIU Y H, PAN H Y, WU E Q. Adaptive T-S fuzzy impedance control for aircraft cockpit human-robot interaction system with dynamic uncertainties[Z]. IEEE THMS。Manuscript under review, 2026.）本仓库通过引入基于 J_l^{-1}(phi_e) 和 J_a 的 analytical pose-error planner，修正了此前小姿态误差近似实现中基于几何雅可比的位姿反馈规划问题。修正后的代码适用于大范围笛卡尔空间位姿规划，并生成规划关节轨迹，用于后续关节跟踪控制。
 The previous code used a small-attitude-error approximation, where the geometric angular-velocity error was directly treated as the derivative of the axis-angle attitude error. This is acceptable for short-range motion but is not rigorous for long-range cockpit operation. This package provides the corrected analytical pose-feedback planner using the SO(3) inverse left Jacobian and analytical Jacobian, and generates the planned joint trajectory for downstream tracking control.（New paper：YAN W, ZHU R H, QIU Y H, PAN H Y, WU E Q. Adaptive T-S fuzzy impedance control for aircraft cockpit human-robot interaction system with dynamic uncertainties[Z]. IEEE THMS。Manuscript under review, 2026.）This repository corrects the previous small-attitude-error implementation by replacing the geometric-Jacobian-based pose feedback with an analytical pose-error planner using J_l^{-1}(phi_e) and J_a. The corrected code is suitable for large-range Cartesian pose planning and generates planned joint trajectories for subsequent joint tracking control.
