@@ -1,6 +1,7 @@
 2026.6.12更新（Directory: explicit_time_kinematic_open_source）
 # Kinova Gen3 Explicit-Time Kinematic Planning
-![Uploading ee_6d_error_tracking.png…]()
+
+<img width="1600" height="800" alt="ee_6d_error_tracking" src="https://github.com/user-attachments/assets/270b2179-0358-4dc0-80fa-055235602a61" />
 
 本仓库Directory: explicit_time_kinematic_open_source提供一个面向 Kinova Gen3 7 自由度机械臂的显式时间运动学规划与在线控制示例，包括末端位姿规划、逆运动学、在线关节速度控制、多 waypoint 轨迹执行，以及可选的实时位姿 Web 监控。
 
