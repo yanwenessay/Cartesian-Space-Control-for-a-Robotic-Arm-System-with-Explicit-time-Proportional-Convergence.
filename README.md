@@ -1,4 +1,4 @@
-2026.6.13更新（显示时间规划：飞机驾驶DEMO）
+2026.6.13更新（笛卡尔空间控制速度级关节规划：飞机驾驶DEMO）
 
 https://github.com/user-attachments/assets/d8280a6f-65b2-4e8e-919c-b08bc2b478e6
 
