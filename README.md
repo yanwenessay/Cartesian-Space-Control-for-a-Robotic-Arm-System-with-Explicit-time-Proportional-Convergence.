@@ -1,3 +1,7 @@
+2026.6.13更新（显示时间规划：飞机驾驶DEMO）
+
+https://github.com/user-attachments/assets/d8280a6f-65b2-4e8e-919c-b08bc2b478e6
+
 2026.6.12更新（Directory: explicit_time_kinematic_open_source）
 # Kinova Gen3 Explicit-Time Kinematic Planning
 <img width="1805" height="1016" alt="main" src="https://github.com/user-attachments/assets/04d0102d-205f-480f-b2be-65178577d8af" />
